@@ -121,28 +121,36 @@ function App() {
               <button 
                 className="glass-container" 
                 onClick={() => {
-                  const flatSections = chapters.flatMap(c => c.sections.map(s => ({ chapter: c, section: s })));
-                  const currentIndex = flatSections.findIndex(s => s.section.id === currentSection.id);
+                  const flatSections = chapters.flatMap(c => c.sections || []).filter(s => s !== undefined);
+                  const currentIndex = flatSections.findIndex(s => s.id === currentSection.id);
                   if (currentIndex > 0) {
-                    const prev = flatSections[currentIndex - 1];
-                    selectSection(prev.chapter, prev.section);
+                    const prevSection = flatSections[currentIndex - 1];
+                    const prevChapter = chapters.find(c => c.sections?.some(s => s.id === prevSection.id));
+                    if (prevChapter) selectSection(prevChapter, prevSection);
                   }
                 }}
-                disabled={chapters[0].sections[0].id === currentSection.id}
+                disabled={(() => {
+                  const flatSections = chapters.flatMap(c => c.sections || []).filter(s => s !== undefined);
+                  return flatSections.length > 0 && flatSections[0].id === currentSection.id;
+                })()}
               >
                 前の回へ
               </button>
               <button 
                 className="glass-container active"
                 onClick={() => {
-                  const flatSections = chapters.flatMap(c => c.sections.map(s => ({ chapter: c, section: s })));
-                  const currentIndex = flatSections.findIndex(s => s.section.id === currentSection.id);
+                  const flatSections = chapters.flatMap(c => c.sections || []).filter(s => s !== undefined);
+                  const currentIndex = flatSections.findIndex(s => s.id === currentSection.id);
                   if (currentIndex < flatSections.length - 1) {
-                    const next = flatSections[currentIndex + 1];
-                    selectSection(next.chapter, next.section);
+                    const nextSection = flatSections[currentIndex + 1];
+                    const nextChapter = chapters.find(c => c.sections?.some(s => s.id === nextSection.id));
+                    if (nextChapter) selectSection(nextChapter, nextSection);
                   }
                 }}
-                disabled={chapters[chapters.length - 1].sections[chapters[chapters.length - 1].sections.length - 1].id === currentSection.id}
+                disabled={(() => {
+                   const flatSections = chapters.flatMap(c => c.sections || []).filter(s => s !== undefined);
+                   return flatSections.length > 0 && flatSections[flatSections.length - 1].id === currentSection.id;
+                })()}
               >
                 次の回へ
               </button>
