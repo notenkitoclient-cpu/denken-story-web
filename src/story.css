@@ -22,7 +22,7 @@
 .narration-text::after {
   content: '──';
   color: var(--text-muted);
-  opacity: 0.4;
+  opacity: 0.8; /* Increased from 0.4 */
   padding: 0 0.5rem;
 }
 

@@ -9,19 +9,19 @@
 
   --text-primary: #f5f0e8;
   --text-secondary: #a8998a;
-  --text-muted: #6b5e52;
+  --text-muted: #a8998a; /* Brightened from #6b5e52 */
 
   /* Signature Gold/Amber Accent */
-  --accent-color: #d4a754;
+  --accent-color: #f0c36b; /* Brightened from #d4a754 */
   --accent-hover: #e8bc6a;
   --accent-glow: rgba(212, 167, 84, 0.25);
   --accent-dim: rgba(212, 167, 84, 0.1);
 
   /* Helper (Hiro) Teal */
-  --hiro-bg: #0d2a2a;
-  --hiro-text: #6ee7d4;
-  --hiro-border: rgba(110, 231, 212, 0.2);
-  --hiro-avatar: #0f766e;
+  --hiro-bg: #133a3a; /* Slightly lighter */
+  --hiro-text: #a7f3d0; /* Brightened from #6ee7d4 */
+  --hiro-border: rgba(110, 231, 212, 0.3);
+  --hiro-avatar: #115e59;
 
   /* Detective (Master) Gold */
   --master-bg: #2a1f0a;
