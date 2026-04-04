@@ -1,14 +1,19 @@
 export type Speaker = 'hiro' | 'master';
+export type ItemType = 'chat' | 'narration' | 'formula';
 
-export interface Message {
-  speaker: Speaker;
-  text: string;
+export interface StoryItem {
+  type: ItemType;
+  speaker?: Speaker;
+  text?: string;
+  formula?: string;
+  formulaTitle?: string;
+  formulaDesc?: string;
 }
 
 export interface Section {
   id: string;
   title: string;
-  messages: Message[];
+  items: StoryItem[];
 }
 
 export interface Chapter {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { ChatBubble } from './components/ChatBubble';
+import './story.css';
+import { StoryElement } from './components/StoryElement';
 import { chapters } from './data/chapters';
 import type { Chapter, Section } from './types';
 
@@ -95,13 +96,12 @@ function App() {
             </div>
             
             <div className="story-container">
-              {currentSection.messages.length > 0 ? (
-                currentSection.messages.map((message, index) => (
-                  <ChatBubble 
+              {currentSection.items && currentSection.items.length > 0 ? (
+                currentSection.items.map((item, index) => (
+                  <StoryElement 
                     key={`${currentSection.id}-${index}`} 
-                    speaker={message.speaker} 
-                    message={message.text} 
-                    delay={index + 1} 
+                    item={item} 
+                    delay={index} 
                   />
                 ))
               ) : (
