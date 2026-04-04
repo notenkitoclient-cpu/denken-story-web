@@ -97,8 +97,8 @@ function App() {
         ) : (
           <>
             <div className="scenario-title">
-              {currentChapter?.id}章：{currentChapter?.title}
-              <div className="section-subtitle">{currentSection.title}</div>
+              <div className="chapter-label">第 {currentChapter?.id} 章 — {currentChapter?.title}</div>
+              <div className="section-title-text">{currentSection.title}</div>
             </div>
             
             <div className="story-container">

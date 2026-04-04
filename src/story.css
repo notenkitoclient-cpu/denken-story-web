@@ -2,26 +2,28 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 1.5rem 0;
+  margin: 2rem 0;
 }
 
 .narration-text {
-  background: rgba(0, 0, 0, 0.03);
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  background: transparent;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
   text-align: center;
-  max-width: 85%;
-  border-left: 4px solid var(--accent-color);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  max-width: 80%;
+  position: relative;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
 }
 
-@media (prefers-color-scheme: dark) {
-  .narration-text {
-    background: rgba(255, 255, 255, 0.05);
-  }
+.narration-text::before,
+.narration-text::after {
+  content: '──';
+  color: var(--text-muted);
+  opacity: 0.4;
+  padding: 0 0.5rem;
 }
 
 .formula-row {
@@ -32,15 +34,15 @@
 }
 
 .formula-box {
-  width: 95%;
-  max-width: 600px;
-  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 580px;
+  padding: 1.6rem 2rem;
   border-radius: 16px;
-  background: var(--bg-primary);
-  border: 2px solid #3b82f6;
+  background: #1a1409;
+  border: 1px solid rgba(212, 167, 84, 0.3);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 40px rgba(212, 167, 84, 0.08), 0 4px 24px rgba(0,0,0,0.5);
 }
 
 .formula-box::before {
@@ -48,53 +50,47 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
-  z-index: 0;
-  pointer-events: none;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
 }
 
 .formula-title {
-  color: #2563eb;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 1.2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  position: relative;
-  z-index: 1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .formula-title {
-    color: #60a5fa;
-  }
-  .formula-box {
-    border-color: #3b82f6;
-  }
+  opacity: 0.9;
 }
 
 .formula-content {
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   font-weight: 700;
   text-align: center;
-  margin: 1.5rem 0;
-  padding: 1.2rem;
-  background: var(--bg-secondary);
-  border-radius: 12px;
-  color: var(--text-primary);
+  margin: 1.25rem 0;
+  padding: 1.1rem;
+  background: rgba(212, 167, 84, 0.05);
+  border-radius: 10px;
+  border: 1px dashed rgba(212, 167, 84, 0.2);
+  color: var(--accent-hover);
   letter-spacing: 0.08em;
-  font-family: 'Courier New', Courier, monospace;
-  position: relative;
-  z-index: 1;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  font-family: 'Space Grotesk', 'Courier New', monospace;
+  line-height: 1.6;
+  white-space: pre-line;
 }
 
 .formula-desc {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  line-height: 1.8;
-  position: relative;
-  z-index: 1;
+  line-height: 1.9;
+  white-space: pre-line;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--glass-border);
+  margin-top: 0.75rem;
 }
