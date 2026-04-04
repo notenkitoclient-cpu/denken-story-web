@@ -81,9 +81,15 @@ function App() {
                 <div key={chapter.id} className="toc-card glass-container">
                   <h4>{chapter.id}章</h4>
                   <p>{chapter.title}</p>
-                  <button onClick={() => selectSection(chapter, chapter.sections[0])}>
-                    学習を始める
-                  </button>
+                  {chapter.sections && chapter.sections.length > 0 ? (
+                    <button onClick={() => selectSection(chapter, chapter.sections[0])}>
+                      学習を始める
+                    </button>
+                  ) : (
+                    <button disabled style={{ opacity: 0.5 }}>
+                      準備中
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
