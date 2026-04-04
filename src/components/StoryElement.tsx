@@ -39,9 +39,9 @@ export const StoryElement = ({ item, delay = 0 }: StoryElementProps) => {
   }
 
   // default to chat
-  const speakerName = item.speaker === 'hiro' ? 'ヒロ (アルバイト)' : 'マスター (元・凄腕技術者)';
+  const speakerName = item.speaker === 'hiro' ? 'ヒロ (新米助手)' : 'マスター (電気探偵)';
   const avatarClass = item.speaker === 'hiro' ? 'hero' : 'master';
-  const avatarLetter = item.speaker === 'hiro' ? 'ヒ' : 'マ';
+  const avatarLetter = item.speaker === 'hiro' ? '助' : '探';
 
   return (
     <div className={`chat-row ${avatarClass} ${isVisible ? 'animate-fade-in' : ''}`} style={style}>

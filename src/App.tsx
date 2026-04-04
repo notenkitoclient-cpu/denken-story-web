@@ -67,8 +67,8 @@ function App() {
       </button>
 
       <header className="header glass-container" onClick={goHome} style={{ cursor: 'pointer' }}>
-        <h1>電験3種ストーリー</h1>
-        <p>〜やさしく学ぶ機械の世界〜</p>
+        <h1>電験ミステリー</h1>
+        <p>〜電気探偵と学ぶ機械の真実〜</p>
       </header>
 
       <main>
