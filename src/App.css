@@ -1,0 +1,134 @@
+.app-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--accent-color), #8b5cf6);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.story-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+.scenario-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1rem;
+  margin: 2rem 0;
+  border-bottom: 2px solid var(--bg-secondary);
+}
+
+/* ChatBubble component styles */
+.chat-row {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1rem;
+  opacity: 0;
+}
+
+.chat-row.hero {
+  justify-content: flex-end;
+}
+
+.chat-row.master {
+  justify-content: flex-start;
+}
+
+.chat-wrapper {
+  display: flex;
+  max-width: 85%;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.chat-row.hero .chat-wrapper {
+  flex-direction: row-reverse;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar.hero {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.avatar.master {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.bubble {
+  padding: 1rem 1.25rem;
+  border-radius: 20px;
+  font-size: 1.05rem;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.chat-row.hero .bubble {
+  background-color: var(--chat-hero-bg);
+  color: var(--chat-hero-text);
+  border-top-right-radius: 4px;
+}
+
+.chat-row.master .bubble {
+  background-color: var(--chat-master-bg);
+  color: var(--chat-master-text);
+  border-top-left-radius: 4px;
+}
+
+.name-label {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.chat-row.hero .name-label {
+  text-align: right;
+}
+
+.chat-row.master .name-label {
+  text-align: left;
+}
