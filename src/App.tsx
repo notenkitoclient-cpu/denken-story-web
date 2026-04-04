@@ -1,45 +1,148 @@
+import { useState, useEffect } from 'react';
 import './App.css';
 import { ChatBubble } from './components/ChatBubble';
-
-const scenarioData = [
-  { speaker: 'hiro', text: '理論はなんとか受かったけど、機械のテキストを開いたら急に構造の話が出てきて、何がなにやら…。' },
-  { speaker: 'master', text: 'おお、理論合格おめでとう！実は「機械」は理論の「電磁気学」の親戚なんだ。難しく考える必要はないよ。' },
-  { speaker: 'hiro', text: 'ホントですか？直流機とか誘導機とか、漢字ばかりで頭が痛くて…。まずは直流機から教えてください！' },
-  { speaker: 'master', text: 'よしきた。モーター（電動機）や発電機って、要するに「回る電気石」みたいなもんだ。' },
-  { speaker: 'hiro', text: '回る電気石？' },
-  { speaker: 'master', text: 'そう。理論で「フレミングの左手の法則」ってやったろ？磁石の中で電線を置くとどうなる？' },
-  { speaker: 'hiro', text: 'ええと、電流を流すと力が働いて、電線が動く…でしたっけ？' },
-  { speaker: 'master', text: '大正解！それがモーター（電動機）の原理だ。電気を入れると、磁石の力で回る。逆に、フレミングの右手の法則は？' },
-  { speaker: 'hiro', text: '電線を動かすと、電流が発生する…ですか？' },
-  { speaker: 'master', text: 'その通り！それが「発電機」だ。回すと電気が生み出される。実は、直流モーターと直流発電機は「構造が全く同じ」なんだぞ。' },
-  { speaker: 'hiro', text: 'えっ！じゃあ、電気を入れて回せばモーター、手で回して電気を取り出せば発電機ってことですか！？' },
-  { speaker: 'master', text: 'まさにその通り。だからテキストで「直流機」とひとまとめにされてるんだ。まずは「同じ箱で２つの働きができる」とイメージしておけばOK！' },
-  { speaker: 'hiro', text: 'なるほど！別々に覚える必要はないんですね。少し気が楽になりました！' }
-];
+import { chapters } from './data/chapters';
+import type { Chapter, Section } from './types';
 
 function App() {
+  const [currentChapter, setCurrentChapter] = useState<Chapter | null>(null);
+  const [currentSection, setCurrentSection] = useState<Section | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Initial state: Show some welcome text or the first section
+  useEffect(() => {
+    // If you want to start from chapter 1, section 1-1 by default:
+    // setCurrentChapter(chapters[0]);
+    // setCurrentSection(chapters[0].sections[0]);
+  }, []);
+
+  const selectSection = (chapter: Chapter, section: Section) => {
+    setCurrentChapter(chapter);
+    setCurrentSection(section);
+    setIsSidebarOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const goHome = () => {
+    setCurrentChapter(null);
+    setCurrentSection(null);
+    setIsSidebarOpen(false);
+  };
+
   return (
-    <div className="app-container">
-      <header className="header glass-container">
+    <div className={`app-container ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+      {/* Navigation Backdrop */}
+      {isSidebarOpen && <div className="backdrop" onClick={() => setIsSidebarOpen(false)} />}
+
+      {/* Sidebar Navigation */}
+      <nav className={`sidebar glass-container ${isSidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <button className="home-btn" onClick={goHome}>🏠 ホーム</button>
+          <button className="close-btn" onClick={() => setIsSidebarOpen(false)}>✕</button>
+        </div>
+        <div className="sidebar-content">
+          {chapters.map((chapter) => (
+            <div key={chapter.id} className="sidebar-chapter">
+              <h3>{chapter.id}章 {chapter.title}</h3>
+              <ul>
+                {chapter.sections.map((section) => (
+                  <li 
+                    key={section.id} 
+                    className={currentSection?.id === section.id ? 'active' : ''}
+                    onClick={() => selectSection(chapter, section)}
+                  >
+                    {section.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </nav>
+
+      {/* Overlay toggle for mobile */}
+      <button className="menu-toggle glass-container" onClick={() => setIsSidebarOpen(true)}>
+        📚 目次
+      </button>
+
+      <header className="header glass-container" onClick={goHome} style={{ cursor: 'pointer' }}>
         <h1>電験3種ストーリー</h1>
         <p>〜やさしく学ぶ機械の世界〜</p>
       </header>
 
       <main>
-        <div className="scenario-title">
-          第1話：直流機ってそもそも何してるの？
-        </div>
-        
-        <div className="story-container">
-          {scenarioData.map((data, index) => (
-            <ChatBubble 
-              key={index} 
-              speaker={data.speaker as 'hiro' | 'master'} 
-              message={data.text} 
-              delay={index + 1} 
-            />
-          ))}
-        </div>
+        {!currentSection ? (
+          <div className="home-view animate-fade-in">
+            <h2>ようこそ、電験3種ストーリーへ！</h2>
+            <p>このサイトでは、難解な電験3種の「機械」科目を、ヒロ君とマスターの対話を通してストーリー形式で学んでいきます。</p>
+            <div className="toc-grid">
+              {chapters.map(chapter => (
+                <div key={chapter.id} className="toc-card glass-container">
+                  <h4>{chapter.id}章</h4>
+                  <p>{chapter.title}</p>
+                  <button onClick={() => selectSection(chapter, chapter.sections[0])}>
+                    学習を始める
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="scenario-title">
+              {currentChapter?.id}章：{currentChapter?.title}
+              <div className="section-subtitle">{currentSection.title}</div>
+            </div>
+            
+            <div className="story-container">
+              {currentSection.messages.length > 0 ? (
+                currentSection.messages.map((message, index) => (
+                  <ChatBubble 
+                    key={`${currentSection.id}-${index}`} 
+                    speaker={message.speaker} 
+                    message={message.text} 
+                    delay={index + 1} 
+                  />
+                ))
+              ) : (
+                <div className="empty-message glass-container">
+                  このセクションの内容は現在準備中です。
+                </div>
+              )}
+            </div>
+            
+            <div className="navigation-footer">
+              <button 
+                className="glass-container" 
+                onClick={() => {
+                  const flatSections = chapters.flatMap(c => c.sections.map(s => ({ chapter: c, section: s })));
+                  const currentIndex = flatSections.findIndex(s => s.section.id === currentSection.id);
+                  if (currentIndex > 0) {
+                    const prev = flatSections[currentIndex - 1];
+                    selectSection(prev.chapter, prev.section);
+                  }
+                }}
+                disabled={chapters[0].sections[0].id === currentSection.id}
+              >
+                前の回へ
+              </button>
+              <button 
+                className="glass-container active"
+                onClick={() => {
+                  const flatSections = chapters.flatMap(c => c.sections.map(s => ({ chapter: c, section: s })));
+                  const currentIndex = flatSections.findIndex(s => s.section.id === currentSection.id);
+                  if (currentIndex < flatSections.length - 1) {
+                    const next = flatSections[currentIndex + 1];
+                    selectSection(next.chapter, next.section);
+                  }
+                }}
+                disabled={chapters[chapters.length - 1].sections[chapters[chapters.length - 1].sections.length - 1].id === currentSection.id}
+              >
+                次の回へ
+              </button>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
